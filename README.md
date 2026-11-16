@@ -16,6 +16,10 @@ A browser calculator for an isolated rectangular pad footing under a concentric 
 
 The results page draws the service and factored corner pressures with the critical sections, a plan of the bottom bars and a section through the footing, and ends with a summary table and a bar schedule. After each calculation, the input panel shows the footing area needed, the smallest thickness that passes shear, and the bars each direction needs. You can export the full calculation as a PDF or an Excel workbook.
 
+## Layout panel
+
+The top of the input panel has a live plan of the footing and column with dimensions. Drag the blue handles on the edges to change L and B in 50 mm steps. The plan redraws as you type and shows the kern (the middle-third zone that the soil resultant must stay inside for full contact) and the service resultant R. Under the plan, the column area, the resultant position and the soil pressure against the allowable value give a quick preview of the service checks.
+
 ## How to use it
 
 Open `index.html` in a web browser. Nothing needs installing, and everything runs on your computer, so no data leaves the page. The PDF and Excel libraries are in the `lib` folder, which must stay next to `index.html`.

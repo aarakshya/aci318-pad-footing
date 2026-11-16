@@ -85,6 +85,31 @@ tr.total td{font-weight:600;background:#f7f6f1;border-top:2px solid var(--ink)}
 h4{font-size:13.5px;margin:18px 0 8px}
 .refs li{font-size:13px;margin:3px 0}
 .footnote{font-size:12.5px;color:var(--muted);text-align:center;margin:4px 0 0;padding-top:10px;border-top:1px solid var(--line)}
+.layout{margin:4px 0 10px;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+.layout .lhead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line);background:#f7f6f1}
+.layout .lhead b{font-size:12px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.layout .lbtns{display:flex;gap:6px}
+.layout .lbtns button{padding:3px 9px;font-size:11.5px;border-radius:12px}
+.layout svg{display:block;width:100%;height:auto;touch-action:none;user-select:none;background:#fff}
+.lstats{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.lstats>div{padding:6px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lstats>div:nth-child(2n){border-right:none}
+.lstats span{display:block;font-size:11px;color:var(--muted)}
+.lstats b{font:500 13px "IBM Plex Mono",monospace;color:var(--ink)}
+.lstats .bar{height:5px;border-radius:3px;background:#e7e4da;margin-top:5px;overflow:hidden;padding:0;border:0}
+.lstats .bar i{display:block;height:100%;background:var(--pass)}
+.lstatus{font-size:12px;padding:6px 10px;line-height:1.45}
+.lstatus.ok{background:#f1f8f3;color:#1e5f39}.lstatus.bad{background:#fdf2f1;color:#8f1f18}.lstatus.na{background:#f4f6f8;color:var(--muted)}
+.llegend{display:flex;flex-wrap:wrap;gap:4px 12px;padding:7px 10px;border-top:1px solid var(--line);font-size:11.5px;color:#3b434b;background:#fcfbf8}
+.llegend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.llegend svg{width:18px;height:12px;flex:none}
+.lhelp{font-size:11.5px;color:var(--muted);padding:0 10px 8px;background:#fcfbf8;line-height:1.45}
+#lay_svg *{pointer-events:none}
+#lay_svg #lay_col,#lay_svg #lay_col *,#lay_svg .lay_h,#lay_svg .lay_h *,#lay_svg .lay_v,#lay_svg .lay_v *{pointer-events:auto}
+#lay_svg #lay_col.mov{cursor:grab}#lay_svg #lay_col.mov:active{cursor:grabbing}
+#lay_svg .lay_h{cursor:ew-resize}#lay_svg .lay_v{cursor:ns-resize}
+#lay_svg .lay_h:hover rect,#lay_svg .lay_v:hover rect{fill:#2b6aa3}
+#lay_col:focus{outline:none}#lay_col:focus .ring{stroke:#1f4e79;stroke-opacity:1}
 </style>
 </head>
 <body>
@@ -107,6 +132,21 @@ h4{font-size:13.5px;margin:18px 0 8px}
     <select id="ed"><option value="25">ACI 318-25</option><option value="19">ACI 318-19</option></select></div>
   <div class="field wide"><label>Size effect in shear</label>
     <select id="sizeEff"><option value="neglect">Neglect (13.2.6.2)</option><option value="apply">Apply λ<sub>s</sub></option></select></div>
+
+  <h3>Layout</h3>
+  <div class="layout" id="layout">
+    <div class="lhead"><b>Plan</b><div class="lbtns"></div></div>
+    <svg id="lay_svg" viewBox="0 0 360 350" role="img" aria-label="Plan of the footing and column"></svg>
+    <div class="lstats" id="lay_stats"></div>
+    <div class="lstatus na" id="lay_read"></div>
+    <div class="llegend">
+      <span><svg viewBox="0 0 18 12"><rect x="4" y="1" width="10" height="10" fill="#4a5562" stroke="#1d2329"/></svg>Column</span>
+      <span><svg viewBox="0 0 18 12"><polygon points="9,1 16,6 9,11 2,6" fill="#c9962833" stroke="#a87b16"/></svg>Kern</span>
+      <span><svg viewBox="0 0 18 12"><circle cx="9" cy="6" r="4" fill="#fff" stroke="#b3261e" stroke-width="1.6"/><path d="M6,3 12,9 M6,9 12,3" stroke="#b3261e" stroke-width="1.3"/></svg>Soil resultant R</span>
+      
+    </div>
+    <div class="lhelp">The kern is the middle-third zone. While R stays inside it, the whole base presses on the soil; outside it, part of the base lifts off. Drag the blue handles to change L and B in 50 mm steps.</div>
+  </div>
 
   <h3>Column</h3>
   <div class="field"><label>Column size along L, c<sub>1</sub></label><input id="c1" type="number" step="any"><span class="u">mm</span></div>
@@ -255,6 +295,7 @@ const SCOPE_NOTE = "Not covered: pile caps, combined or strap footings, a column
 
 const f = (x,p=2) => (x===null||x===undefined||!isFinite(x)) ? "–" : Number(x).toLocaleString("en-US",{minimumFractionDigits:p,maximumFractionDigits:p});
 const f5 = x => isFinite(x) ? x.toFixed(5) : "–";
+const sg = (x,p=1) => (x>=0?"+":"−")+f(Math.abs(x),p);
 const strip = s => String(s).replace(/<sub>(.*?)<\/sub>/g,"$1").replace(/<sup>(.*?)<\/sup>/g,"^$1").replace(/<[^>]+>/g,"").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&amp;/g,"&");
 
 function design(v){
@@ -835,6 +876,203 @@ function detailSvgs(M){
   return {sec:plan, elev:sec, secW:VW, secH:VH, elevW:EW, elevH:EH};
 }
 
+// ---------- interactive plan in the input panel ----------
+const LAY = {W:360, H:350, ml:62, mr:30, mt:26, mb:58, grid:null, gridKey:"", drag:null, movable:false};
+const LFONT = 'font-family="IBM Plex Sans, Helvetica, Arial, sans-serif"';
+const LMONO = 'font-family="IBM Plex Mono, Menlo, monospace"';
+function layNum(id){ const el=$(id); if(!el) return 0; const v=parseFloat(el.value); return isFinite(v) ? v : NaN; }
+function layVals(){
+  const v={}; ["L","B","c1","c2","ox","oy","PD","PL","Msx","Msy","Hx","Hy","h","Df","gs","gc","qa","minContact"].forEach(k=>v[k]=layNum(k));
+  v.qtype=$("qtype").value; if(!LAY.movable){ v.ox=0; v.oy=0; v.minContact=100; } return v;
+}
+function layGeom(v){
+  const pw=LAY.W-LAY.ml-LAY.mr, sc=Math.min(pw/v.L, 300/v.B), ph=v.B*sc; LAY.H=Math.round(LAY.mt+ph+LAY.mb);
+  const cx=LAY.ml+pw/2, cy=LAY.mt+ph/2;
+  return {sc, X:x=>cx+x*sc, Y:y=>cy-y*sc, cx, cy, w:v.L*sc, hh:v.B*sc};
+}
+function layService(v){
+  if(!(v.L>0&&v.B>0&&v.PD>0)) return null;
+  const hm=(v.h||0)/1000, A=v.L*v.B, Acol=(v.c1||0)*(v.c2||0)/1e6;
+  const Wf=(v.gc||0)*A*hm, Ws=(v.gs||0)*Math.max((v.Df||0)-hm,0)*(A-Acol), Ps=v.PD+(v.PL||0), P=Ps+Wf+Ws;
+  const My=Ps*(v.ox||0)/1000+(v.Msy||0)+(v.Hx||0)*hm, Mx=Ps*(v.oy||0)/1000+(v.Msx||0)+(v.Hy||0)*hm;
+  const ex=My/P, ey=Mx/P, kern=6*Math.abs(ex)/v.L+6*Math.abs(ey)/v.B, over=(v.gs||0)*(v.Df||0);
+  let S;
+  if(typeof solveContact==="function"){
+    const key=v.L+"x"+v.B; if(LAY.gridKey!==key){ LAY.grid=mkGrid(v.L,v.B); LAY.gridKey=key; }
+    S=solveContact(LAY.grid,P,ex,ey);
+  } else {
+    const ok=kern<=1, qa_=P/A;
+    S={ok:Math.abs(ex)<v.L/2&&Math.abs(ey)<v.B/2, full:ok, frac: ok?1:NaN, qmax: ok ? qa_*(1+kern) : NaN, a:qa_, b:My/(v.B*v.L**3/12), c:Mx/(v.L*v.B**3/12)};
+  }
+  const qc = S.ok&&isFinite(S.qmax) ? (v.qtype==="net" ? S.qmax-over : S.qmax) : NaN;
+  const ux=-((v.Msy||0)+(v.Hx||0)*hm)/Ps*1000, uy=-((v.Msx||0)+(v.Hy||0)*hm)/Ps*1000;
+  return {ex,ey,S,qc,ux,uy,P,kern};
+}
+function layClamp(v,x,y){
+  const mx=Math.max(v.L*500-v.c1/2,0), my=Math.max(v.B*500-v.c2/2,0);
+  return [Math.max(-mx,Math.min(mx,x)), Math.max(-my,Math.min(my,y))];
+}
+function layClip(L,B,a,b,c){
+  const poly=[[-L/2,-B/2],[L/2,-B/2],[L/2,B/2],[-L/2,B/2]], out=[];
+  for(let i=0;i<4;i++){ const p=poly[i], q=poly[(i+1)%4], fp=a+b*p[0]+c*p[1], fq=a+b*q[0]+c*q[1];
+    if(fp>=0) out.push(p); if((fp>=0)!==(fq>=0)){ const k=fp/(fp-fq); out.push([p[0]+k*(q[0]-p[0]),p[1]+k*(q[1]-p[1])]); } }
+  return out;
+}
+// horizontal chain dimension: points (px), labels between, at row y; ext lines from yFrom
+function layChainH(xs, labels, y, yFrom){
+  let s="";
+  s+=`<line x1="${xs[0]}" y1="${y}" x2="${xs[xs.length-1]}" y2="${y}" stroke="#3b434b" stroke-width="0.7"/>`;
+  xs.forEach(x=>{ s+=`<line x1="${x}" y1="${yFrom}" x2="${x}" y2="${y+4}" stroke="#9aa2a9" stroke-width="0.6"/><line x1="${x-3}" y1="${y+3}" x2="${x+3}" y2="${y-3}" stroke="#1d2329" stroke-width="1.1"/>`; });
+  labels.forEach((t,i)=>{ const a=xs[i], b=xs[i+1], w=b-a; if(!t) return;
+    const tw=t.length*5.6; const tx=(a+b)/2;
+    if(w>tw+6) s+=`<text x="${tx}" y="${y-3.5}" text-anchor="middle" font-size="9.5" fill="#1d2329" ${LMONO}>${t}</text>`;
+    else if(w>3) s+=`<text x="${tx}" y="${y+12}" text-anchor="middle" font-size="9" fill="#5d6670" ${LMONO}>${t}</text>`; });
+  return s;
+}
+function layChainV(ys, labels, x, xFrom){
+  let s="";
+  s+=`<line x1="${x}" y1="${ys[0]}" x2="${x}" y2="${ys[ys.length-1]}" stroke="#3b434b" stroke-width="0.7"/>`;
+  ys.forEach(y=>{ s+=`<line x1="${xFrom}" y1="${y}" x2="${x-4}" y2="${y}" stroke="#9aa2a9" stroke-width="0.6"/><line x1="${x-3}" y1="${y+3}" x2="${x+3}" y2="${y-3}" stroke="#1d2329" stroke-width="1.1"/>`; });
+  labels.forEach((t,i)=>{ const a=ys[i], b=ys[i+1], hgt=Math.abs(b-a); if(!t) return;
+    const tw=t.length*5.6, ty=(a+b)/2;
+    if(hgt>tw+6) s+=`<text transform="translate(${x-4},${ty}) rotate(-90)" text-anchor="middle" font-size="9.5" fill="#1d2329" ${LMONO}>${t}</text>`;
+    else if(hgt>3) s+=`<text x="${x-6}" y="${ty+3}" text-anchor="end" font-size="9" fill="#5d6670" ${LMONO}>${t}</text>`; });
+  return s;
+}
+function drawLayout(){
+  const svg=$("lay_svg"); if(!svg) return;
+  const v=layVals();
+  if(!(v.L>0&&v.B>0&&v.c1>0&&v.c2>0)){ svg.innerHTML=`<text x="180" y="175" text-anchor="middle" font-size="12" fill="#b3261e" ${LFONT}>Enter L, B, c1 and c2 to see the plan</text>`; $("lay_read").textContent=""; $("lay_stats").innerHTML=""; return; }
+  const ox=v.ox||0, oy=v.oy||0, G=layGeom(v), {X,Y,sc}=G, L=v.L, B=v.B;
+  const x0=X(-L/2), x1=X(L/2), y0=Y(B/2), y1=Y(-B/2);
+  const cxm=ox/1000, cym=oy/1000, c1=v.c1/1000, c2=v.c2/1000;
+  const fits = Math.abs(ox)+v.c1/2<=L*500+1e-6 && Math.abs(oy)+v.c2/2<=B*500+1e-6;
+  const R=layService(v);
+  let s=`<defs>
+    <pattern id="lay_lift" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#f3f1ec"/><line x1="0" y1="0" x2="0" y2="6" stroke="#c2bcae" stroke-width="1"/></pattern>
+    <pattern id="lay_conc" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#eef2f6"/><circle cx="2" cy="3" r="0.5" fill="#c6ced6"/><circle cx="6.5" cy="7" r="0.45" fill="#c6ced6"/></pattern>
+    <filter id="lay_sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#1d2329" flood-opacity=".25"/></filter>
+  </defs>`;
+  s+=`<rect width="${LAY.W}" height="${LAY.H}" fill="#fff"/>`;
+  // footing, contact and lifted areas
+  s+=`<rect x="${x0}" y="${y0}" width="${G.w}" height="${G.hh}" fill="url(#lay_conc)"/>`;
+  let liftLabel="";
+  if(R && R.S.ok && R.S.full===false && typeof solveContact==="function"){
+    const lift=layClip(L,B,-R.S.a,-R.S.b,-R.S.c);
+    if(lift.length>2){
+      s+=`<polygon points="${lift.map(p=>`${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(" ")}" fill="url(#lay_lift)"/>`;
+      let ax=0,ay=0; lift.forEach(p=>{ax+=p[0];ay+=p[1];}); ax/=lift.length; ay/=lift.length;
+      liftLabel=`<text x="${X(ax)}" y="${Y(ay)+3}" text-anchor="middle" font-size="10" font-style="italic" fill="#7d776a" stroke="#f3f1ec" stroke-width="3" paint-order="stroke" ${LFONT}>lifts off</text>`;
+      const zl=layClip(L,B,R.S.a,R.S.b,R.S.c).filter(p=>Math.abs(R.S.a+R.S.b*p[0]+R.S.c*p[1])<1e-6*Math.max(1,Math.abs(R.S.a)));
+      if(zl.length>=2) s+=`<line x1="${X(zl[0][0])}" y1="${Y(zl[0][1])}" x2="${X(zl[1][0])}" y2="${Y(zl[1][1])}" stroke="#8a6d1f" stroke-width="1.2" stroke-dasharray="6 3"/>`;
+    }
+  }
+  // centre lines
+  s+=`<line x1="${X(0)}" y1="${y0-14}" x2="${X(0)}" y2="${y1+8}" stroke="#7d868e" stroke-width="0.6" stroke-dasharray="12 3 2 3"/>`;
+  s+=`<line x1="${x0-8}" y1="${Y(0)}" x2="${x1+14}" y2="${Y(0)}" stroke="#7d868e" stroke-width="0.6" stroke-dasharray="12 3 2 3"/>`;
+  s+=`<text x="${x1+16}" y="${Y(0)+3.5}" font-size="10" fill="#5d6670" font-style="italic" ${LFONT}>x</text><text x="${X(0)}" y="${y0-17}" text-anchor="middle" font-size="10" fill="#5d6670" font-style="italic" ${LFONT}>y</text>`;
+  // kern
+  s+=`<polygon points="${X(L/6)},${Y(0)} ${X(0)},${Y(B/6)} ${X(-L/6)},${Y(0)} ${X(0)},${Y(-B/6)}" fill="#c99628" fill-opacity="0.13" stroke="#a87b16" stroke-width="0.9"/>`;
+  s+=`<text x="${X(-L/6)+5}" y="${Y(0)-4}" font-size="9" fill="#8a6d1f" font-style="italic" stroke="#fff" stroke-width="2.5" stroke-opacity="0.85" paint-order="stroke" ${LFONT}>kern</text>`;
+  // footing outline
+  s+=`<rect x="${x0}" y="${y0}" width="${G.w}" height="${G.hh}" fill="none" stroke="#1d2329" stroke-width="1.8"/>`;
+  s+=liftLabel;
+  // uniform-pressure ghost
+  if(LAY.movable && R && isFinite(R.ux) && isFinite(R.uy)){
+    const [gx,gy]=layClamp(v,R.ux,R.uy);
+    if(Math.hypot(gx-ox,gy-oy)>12) s+=`<rect x="${X(gx/1000-c1/2)}" y="${Y(gy/1000+c2/2)}" width="${c1*sc}" height="${c2*sc}" fill="#2e7d4f" fill-opacity="0.06" stroke="#2e7d4f" stroke-width="1.1" stroke-dasharray="4 2.5"/>`;
+  }
+  // column
+  const cX=X(cxm-c1/2), cY=Y(cym+c2/2), cw=Math.max(c1*sc,6), ch=Math.max(c2*sc,6), cx_=X(cxm), cy_=Y(cym);
+  s+=`<g id="lay_col" class="${LAY.movable?"mov":""}" tabindex="${LAY.movable?0:-1}" role="${LAY.movable?"slider":"img"}" aria-label="Column at x ${ox} mm, y ${oy} mm">
+    ${LAY.movable?`<title>Drag to move the column</title>`:""}
+    <rect class="ring" x="${cX-4}" y="${cY-4}" width="${cw+8}" height="${ch+8}" rx="3" fill="none" stroke="#1f4e79" stroke-opacity="0" stroke-width="1.5"/>
+    <rect x="${cX}" y="${cY}" width="${cw}" height="${ch}" fill="${fits?"#4a5562":"#b3261e"}" stroke="#1d2329" stroke-width="1.2" filter="url(#lay_sh)"/>
+    <path d="M${cX},${cY} L${cX+cw},${cY+ch} M${cX+cw},${cY} L${cX},${cY+ch}" stroke="#ffffff" stroke-opacity="0.35" stroke-width="0.8"/>
+    <circle cx="${cx_}" cy="${cy_}" r="1.8" fill="#fff"/></g>`;
+  // resultant
+  if(R && isFinite(R.ex)){ const inside=Math.abs(R.ex)<L/2&&Math.abs(R.ey)<B/2, rx=X(Math.max(-L/2,Math.min(L/2,R.ex))), ry=Y(Math.max(-B/2,Math.min(B/2,R.ey)));
+    s+=`<g><circle cx="${rx}" cy="${ry}" r="5.5" fill="#fff" fill-opacity="0.9" stroke="#b3261e" stroke-width="1.6"/><path d="M${rx-3.5},${ry-3.5} L${rx+3.5},${ry+3.5} M${rx-3.5},${ry+3.5} L${rx+3.5},${ry-3.5}" stroke="#b3261e" stroke-width="1.3"/>
+      <text x="${rx+8}" y="${ry-6}" font-size="10.5" font-weight="600" fill="#b3261e" stroke="#fff" stroke-width="2.5" paint-order="stroke" ${LFONT}>R${inside?"":" outside"}</text></g>`; }
+  // handles
+  const hx=x1, hy=Y(0), vx=X(0), vy=y0;
+  s+=`<g class="lay_h" id="lay_hL"><title>Drag to change L</title><rect x="${hx-5}" y="${hy-15}" width="10" height="30" rx="5" fill="#1f4e79"/><path d="M${hx-1.5},${hy-6} v12 M${hx+1.5},${hy-6} v12" stroke="#fff" stroke-width="0.9"/></g>`;
+  s+=`<g class="lay_v" id="lay_hB"><title>Drag to change B</title><rect x="${vx-15}" y="${vy-5}" width="30" height="10" rx="5" fill="#1f4e79"/><path d="M${vx-6},${vy-1.5} h12 M${vx-6},${vy+1.5} h12" stroke="#fff" stroke-width="0.9"/></g>`;
+  // dimensions: chain (edge, column, edge) and overall, below and to the left
+  const gl=L*500+ox-v.c1/2, gr=L*500-ox-v.c1/2, gb=B*500+oy-v.c2/2, gt=B*500-oy-v.c2/2;
+  const fmt=x=>f(x,0);
+  if(fits){
+    s+=layChainH([x0,X(cxm-c1/2),X(cxm+c1/2),x1],[gl>0.5?fmt(gl):"",fmt(v.c1),gr>0.5?fmt(gr):""], y1+18, y1+2);
+    s+=layChainV([y0,Y(cym+c2/2),Y(cym-c2/2),y1],[gt>0.5?fmt(gt):"",fmt(v.c2),gb>0.5?fmt(gb):""], x0-18, x0-2);
+  }
+  s+=layChainH([x0,x1],[`L = ${fmt(L*1000)}`], y1+42, y1+20);
+  s+=layChainV([y0,y1],[`B = ${fmt(B*1000)}`], x0-42, x0-20);
+  s+=`<text x="6" y="${LAY.H-6}" font-size="9" fill="#9aa2a9" ${LFONT}>mm</text>`;
+  svg.setAttribute("viewBox",`0 0 ${LAY.W} ${LAY.H}`);
+  svg.innerHTML=s;
+
+  // stats and status
+  const st=$("lay_stats"), rd=$("lay_read");
+  const cell=(t,val,bar)=>`<div><span>${t}</span><b>${val}</b>${bar||""}</div>`;
+  if(!R){ st.innerHTML=cell("Column", LAY.movable?`${sg(ox,0)}, ${sg(oy,0)}`:"centre")+cell("Footing", `${f(L,2)} × ${f(B,2)} m`); rd.className="lstatus na"; rd.textContent="Enter the service loads to preview the soil pressure."; return; }
+  const util = isFinite(R.qc) ? R.qc/v.qa : NaN, uw=Math.min(isFinite(util)?util:1.2,1.2)/1.2*100;
+  const bar=`<div class="bar"><i style="width:${uw.toFixed(0)}%;background:${util<=1?"var(--pass)":"var(--fail)"}"></i></div>`;
+  const contactTxt = R.S.ok ? (isFinite(R.S.frac) ? `${f(R.S.frac*100,0)}%` : "partial") : "none";
+  st.innerHTML =
+    cell(LAY.movable?"Column x<sub>c</sub>, y<sub>c</sub> (mm)":"Footing area", LAY.movable?`${sg(ox,0)}, ${sg(oy,0)}`:`${f(L*B,2)} m²`) +
+    cell("Resultant e<sub>x</sub>, e<sub>y</sub> (mm)", `${sg(R.ex*1000,0)}, ${sg(R.ey*1000,0)}`) +
+    cell("Base in contact", contactTxt) +
+    cell(`Soil, ${v.qtype} (kPa)`, isFinite(R.qc)?`${f(R.qc,0)} / ${f(v.qa,0)}`:"–", isFinite(R.qc)?bar:"");
+  if(!fits){ rd.className="lstatus bad"; rd.innerHTML=`The column does not fit on the footing. Keep |x<sub>c</sub>| ≤ ${f(L*500-v.c1/2,0)} mm and |y<sub>c</sub>| ≤ ${f(B*500-v.c2/2,0)} mm.`; return; }
+  if(!R.S.ok){ rd.className="lstatus bad"; rd.textContent="The service resultant is outside the footing, so it overturns."; return; }
+  if(!LAY.movable && R.kern>1){ rd.className="lstatus bad"; rd.innerHTML=`R is outside the kern (ratio ${f(R.kern,2)}), so part of the base would lift off. This app needs full contact: enlarge the footing, or use the eccentric footing app.`; return; }
+  const okq=util<=1, okc=!LAY.movable || R.S.frac*100>=(v.minContact||0)-0.05;
+  rd.className="lstatus "+(okq&&okc?"ok":"bad");
+  rd.innerHTML = (okq&&okc ? "Service soil checks pass." : `Service soil checks fail: ${[!okq?`pressure ${f(util*100,0)}% of allowable`:"", !okc?`contact below ${f(v.minContact,0)}%`:""].filter(Boolean).join(", ")}.`) + " Preview only; click Calculate for the full design.";
+}
+function laySet(ox,oy){
+  const v=layVals(); const [x,y]=layClamp(v,ox,oy);
+  $("ox").value=Math.round(x); $("oy").value=Math.round(y);
+  $("ox").dispatchEvent(new Event("input",{bubbles:true}));
+}
+function layPoint(evt){
+  const svg=$("lay_svg"), pt=svg.createSVGPoint(); pt.x=evt.clientX; pt.y=evt.clientY;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+function initLayout(){
+  const svg=$("lay_svg"); if(!svg) return;
+  LAY.movable = !!$("ox");
+  svg.addEventListener("pointerdown", e=>{
+    const t=e.target.closest(LAY.movable?"#lay_col, #lay_hL, #lay_hB":"#lay_hL, #lay_hB"); if(!t) return;
+    e.preventDefault(); svg.setPointerCapture(e.pointerId);
+    const v=layVals(), G=layGeom(v), p=layPoint(e);
+    LAY.drag={kind:t.id, sc:G.sc, x0:p.x, y0:p.y, ox:v.ox||0, oy:v.oy||0, L:v.L, B:v.B};
+    if(t.id==="lay_col") $("lay_col").focus();
+  });
+  svg.addEventListener("pointermove", e=>{
+    const D=LAY.drag; if(!D) return;
+    const p=layPoint(e), dx=(p.x-D.x0)/D.sc, dy=-(p.y-D.y0)/D.sc;
+    if(D.kind==="lay_col"){ const snap=25; laySet(Math.round((D.ox+dx*1000)/snap)*snap, Math.round((D.oy+dy*1000)/snap)*snap); }
+    else if(D.kind==="lay_hL"){ const v=layVals(); let L=Math.round((D.L+2*dx)*20)/20; L=Math.max(L,(2*Math.abs(v.ox||0)+v.c1)/1000+0.05,0.3); $("L").value=+L.toFixed(2); $("L").dispatchEvent(new Event("input",{bubbles:true})); }
+    else { const v=layVals(); let B=Math.round((D.B+2*dy)*20)/20; B=Math.max(B,(2*Math.abs(v.oy||0)+v.c2)/1000+0.05,0.3); $("B").value=+B.toFixed(2); $("B").dispatchEvent(new Event("input",{bubbles:true})); }
+  });
+  const end=e=>{ if(LAY.drag){ LAY.drag=null; try{ svg.releasePointerCapture(e.pointerId); }catch(_){} } };
+  svg.addEventListener("pointerup", end); svg.addEventListener("pointercancel", end);
+  if(LAY.movable){
+    svg.addEventListener("keydown", e=>{
+      if(!e.target.closest("#lay_col")) return;
+      const stp=e.shiftKey?100:25, v=layVals(); let x=v.ox||0, y=v.oy||0;
+      if(e.key==="ArrowLeft") x-=stp; else if(e.key==="ArrowRight") x+=stp; else if(e.key==="ArrowUp") y+=stp; else if(e.key==="ArrowDown") y-=stp; else return;
+      e.preventDefault(); laySet(x,y);
+    });
+    $("lay_centre").addEventListener("click", ()=>laySet(0,0));
+    $("lay_uniform").addEventListener("click", ()=>{ const R=layService(layVals()); if(R) laySet(Math.round(R.ux/25)*25, Math.round(R.uy/25)*25); });
+  }
+  let raf=0; const redraw=()=>{ if(raf) return; raf=requestAnimationFrame(()=>{ raf=0; const had=document.activeElement && document.activeElement.id==="lay_col"; drawLayout(); if(had){ const c=$("lay_col"); if(c) c.focus(); } }); };
+  $("form").addEventListener("input", redraw); $("form").addEventListener("change", redraw);
+  drawLayout();
+}
+
 // ---------- state, buttons, exports ----------
 let dl = null;
 const toast = (t, bad) => { const el=$("toast"); el.textContent = t; el.style.color = bad ? "var(--fail)" : "var(--accent)"; };
@@ -1073,6 +1311,7 @@ $("refs").innerHTML = REFS.map(r=>`<li>${r}</li>`).join("");
 $("form").addEventListener("submit", e => { e.preventDefault(); calculate(); });
 $("form").addEventListener("input", markStale);
 $("form").addEventListener("change", markStale);
+initLayout();
 $("pdf").addEventListener("click", async () => {
   if (!M || stale) return toast("Click Calculate first.", true);
   toast("Building PDF…");
