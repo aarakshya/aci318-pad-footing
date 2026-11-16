@@ -140,7 +140,7 @@ h4{font-size:13.5px;margin:18px 0 8px}
     <div class="lstats" id="lay_stats"></div>
     <div class="lstatus na" id="lay_read"></div>
     <div class="llegend">
-      <span><svg viewBox="0 0 18 12"><rect x="1" y="1" width="16" height="10" fill="#e6e2d8" stroke="#2b3440" stroke-width="0.8"/></svg>Footing</span><span><svg viewBox="0 0 18 12"><rect x="4" y="1" width="10" height="10" fill="#34495e" stroke="#1c2833"/></svg>Column</span>
+      <span><svg viewBox="0 0 18 12"><rect x="1" y="1" width="16" height="10" fill="#dfe0e1" stroke="#2b3440" stroke-width="0.8"/></svg>Footing</span><span><svg viewBox="0 0 18 12"><rect x="4" y="1" width="10" height="10" fill="#34495e" stroke="#1c2833"/></svg>Column</span>
       <span><svg viewBox="0 0 18 12"><polygon points="9,1 16,6 9,11 2,6" fill="#2a9d8f1f" stroke="#2a7f75"/></svg>Kern</span>
       <span><svg viewBox="0 0 18 12"><circle cx="9" cy="6" r="4" fill="#fff" stroke="#c0392b" stroke-width="1.4"/><path d="M6,3 12,9 M6,9 12,3" stroke="#c0392b" stroke-width="1.3"/></svg>Soil resultant R</span>
       
@@ -949,8 +949,8 @@ function drawLayout(){
   const fits = Math.abs(ox)+v.c1/2<=L*500+1e-6 && Math.abs(oy)+v.c2/2<=B*500+1e-6;
   const R=layService(v);
   let s=`<defs>
-    <pattern id="lay_lift" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#fbfaf7"/><line x1="0" y1="0" x2="0" y2="6" stroke="#c8c1b1" stroke-width="0.9"/></pattern>
-    <pattern id="lay_conc" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#e6e2d8"/><circle cx="2" cy="3" r="0.55" fill="#c4bca9"/><circle cx="6.5" cy="7" r="0.5" fill="#c4bca9"/><circle cx="7" cy="1.5" r="0.35" fill="#cfc8b6"/></pattern>
+    <pattern id="lay_lift" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#fafafa"/><line x1="0" y1="0" x2="0" y2="6" stroke="#c3c5c7" stroke-width="0.9"/></pattern>
+    <pattern id="lay_conc" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#dfe0e1"/><circle cx="2" cy="3" r="0.55" fill="#bfc1c3"/><circle cx="6.5" cy="7" r="0.5" fill="#bfc1c3"/><circle cx="7" cy="1.5" r="0.35" fill="#cacccd"/></pattern>
     <filter id="lay_sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#1d2329" flood-opacity=".25"/></filter>
   </defs>`;
   s+=`<rect width="${LAY.W}" height="${LAY.H}" fill="#fff"/>`;
@@ -962,7 +962,7 @@ function drawLayout(){
     if(lift.length>2){
       s+=`<polygon points="${lift.map(p=>`${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(" ")}" fill="url(#lay_lift)"/>`;
       let ax=0,ay=0; lift.forEach(p=>{ax+=p[0];ay+=p[1];}); ax/=lift.length; ay/=lift.length;
-      liftLabel=`<text x="${X(ax)}" y="${Y(ay)+3}" text-anchor="middle" font-size="8" font-style="italic" fill="#7d776a" stroke="#fbfaf7" stroke-width="3" paint-order="stroke" ${LFONT}>lifts off</text>`;
+      liftLabel=`<text x="${X(ax)}" y="${Y(ay)+3}" text-anchor="middle" font-size="8" font-style="italic" fill="#7a7d80" stroke="#fafafa" stroke-width="3" paint-order="stroke" ${LFONT}>lifts off</text>`;
       const zl=layClip(L,B,R.S.a,R.S.b,R.S.c).filter(p=>Math.abs(R.S.a+R.S.b*p[0]+R.S.c*p[1])<1e-6*Math.max(1,Math.abs(R.S.a)));
       if(zl.length>=2) s+=`<line x1="${X(zl[0][0])}" y1="${Y(zl[0][1])}" x2="${X(zl[1][0])}" y2="${Y(zl[1][1])}" stroke="#6b6457" stroke-width="1" stroke-dasharray="5 3"/>`;
     }
