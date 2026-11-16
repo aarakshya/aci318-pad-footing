@@ -87,29 +87,29 @@ h4{font-size:13.5px;margin:18px 0 8px}
 .footnote{font-size:12.5px;color:var(--muted);text-align:center;margin:4px 0 0;padding-top:10px;border-top:1px solid var(--line)}
 .layout{margin:4px 0 10px;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
 .layout .lhead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line);background:#f7f6f1}
-.layout .lhead b{font-size:12px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.layout .lhead b{font-size:10.5px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);font-weight:600}
 .layout .lbtns{display:flex;gap:6px}
-.layout .lbtns button{padding:3px 9px;font-size:11.5px;border-radius:12px}
+.layout .lbtns button{padding:2px 8px;font-size:10.5px;border-radius:11px}
 .layout svg{display:block;width:100%;height:auto;touch-action:none;user-select:none;background:#fff}
 .lstats{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
-.lstats>div{padding:6px 10px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lstats>div{padding:5px 9px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
 .lstats>div:nth-child(2n){border-right:none}
-.lstats span{display:block;font-size:11px;color:var(--muted)}
-.lstats b{font:500 13px "IBM Plex Mono",monospace;color:var(--ink)}
-.lstats .bar{height:5px;border-radius:3px;background:#e7e4da;margin-top:5px;overflow:hidden;padding:0;border:0}
+.lstats span{display:block;font-size:10px;color:var(--muted)}
+.lstats b{font:500 11.5px "IBM Plex Mono",monospace;color:var(--ink)}
+.lstats .bar{height:4px;border-radius:3px;background:#e7e4da;margin-top:5px;overflow:hidden;padding:0;border:0}
 .lstats .bar i{display:block;height:100%;background:var(--pass)}
-.lstatus{font-size:12px;padding:6px 10px;line-height:1.45}
+.lstatus{font-size:10.5px;padding:5px 9px;line-height:1.45}
 .lstatus.ok{background:#f1f8f3;color:#1e5f39}.lstatus.bad{background:#fdf2f1;color:#8f1f18}.lstatus.na{background:#f4f6f8;color:var(--muted)}
-.llegend{display:flex;flex-wrap:wrap;gap:4px 12px;padding:7px 10px;border-top:1px solid var(--line);font-size:11.5px;color:#3b434b;background:#fcfbf8}
+.llegend{display:flex;flex-wrap:wrap;gap:3px 10px;padding:6px 9px;border-top:1px solid var(--line);font-size:10.5px;color:#3b434b;background:#fcfbf8}
 .llegend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
-.llegend svg{width:18px;height:12px;flex:none}
-.lhelp{font-size:11.5px;color:var(--muted);padding:0 10px 8px;background:#fcfbf8;line-height:1.45}
+.llegend svg{width:15px;height:10px;flex:none}
+.lhelp{font-size:10px;color:var(--muted);padding:0 9px 7px;background:#fcfbf8;line-height:1.45}
 #lay_svg *{pointer-events:none}
 #lay_svg #lay_col,#lay_svg #lay_col *,#lay_svg .lay_h,#lay_svg .lay_h *,#lay_svg .lay_v,#lay_svg .lay_v *{pointer-events:auto}
 #lay_svg #lay_col.mov{cursor:grab}#lay_svg #lay_col.mov:active{cursor:grabbing}
 #lay_svg .lay_h{cursor:ew-resize}#lay_svg .lay_v{cursor:ns-resize}
-#lay_svg .lay_h:hover rect,#lay_svg .lay_v:hover rect{fill:#2b6aa3}
-#lay_col:focus{outline:none}#lay_col:focus .ring{stroke:#1f4e79;stroke-opacity:1}
+#lay_svg .lay_h:hover rect,#lay_svg .lay_v:hover rect{fill:#3b7bb3}
+#lay_col:focus{outline:none}#lay_col:focus .ring{stroke:#2c5f8a;stroke-opacity:1}
 </style>
 </head>
 <body>
@@ -140,9 +140,9 @@ h4{font-size:13.5px;margin:18px 0 8px}
     <div class="lstats" id="lay_stats"></div>
     <div class="lstatus na" id="lay_read"></div>
     <div class="llegend">
-      <span><svg viewBox="0 0 18 12"><rect x="4" y="1" width="10" height="10" fill="#4a5562" stroke="#1d2329"/></svg>Column</span>
-      <span><svg viewBox="0 0 18 12"><polygon points="9,1 16,6 9,11 2,6" fill="#c9962833" stroke="#a87b16"/></svg>Kern</span>
-      <span><svg viewBox="0 0 18 12"><circle cx="9" cy="6" r="4" fill="#fff" stroke="#b3261e" stroke-width="1.6"/><path d="M6,3 12,9 M6,9 12,3" stroke="#b3261e" stroke-width="1.3"/></svg>Soil resultant R</span>
+      <span><svg viewBox="0 0 18 12"><rect x="4" y="1" width="10" height="10" fill="#34495e" stroke="#1c2833"/></svg>Column</span>
+      <span><svg viewBox="0 0 18 12"><polygon points="9,1 16,6 9,11 2,6" fill="#2a9d8f1f" stroke="#2a7f75"/></svg>Kern</span>
+      <span><svg viewBox="0 0 18 12"><circle cx="9" cy="6" r="4" fill="#fff" stroke="#c0392b" stroke-width="1.4"/><path d="M6,3 12,9 M6,9 12,3" stroke="#c0392b" stroke-width="1.3"/></svg>Soil resultant R</span>
       
     </div>
     <div class="lhelp">The kern is the middle-third zone. While R stays inside it, the whole base presses on the soil; outside it, part of the base lifts off. Drag the blue handles to change L and B in 50 mm steps.</div>
@@ -921,28 +921,28 @@ function layClip(L,B,a,b,c){
 // horizontal chain dimension: points (px), labels between, at row y; ext lines from yFrom
 function layChainH(xs, labels, y, yFrom){
   let s="";
-  s+=`<line x1="${xs[0]}" y1="${y}" x2="${xs[xs.length-1]}" y2="${y}" stroke="#3b434b" stroke-width="0.7"/>`;
-  xs.forEach(x=>{ s+=`<line x1="${x}" y1="${yFrom}" x2="${x}" y2="${y+4}" stroke="#9aa2a9" stroke-width="0.6"/><line x1="${x-3}" y1="${y+3}" x2="${x+3}" y2="${y-3}" stroke="#1d2329" stroke-width="1.1"/>`; });
+  s+=`<line x1="${xs[0]}" y1="${y}" x2="${xs[xs.length-1]}" y2="${y}" stroke="#6b7580" stroke-width="0.6"/>`;
+  xs.forEach(x=>{ s+=`<line x1="${x}" y1="${yFrom}" x2="${x}" y2="${y+4}" stroke="#b8bec4" stroke-width="0.5"/><line x1="${x-3}" y1="${y+3}" x2="${x+3}" y2="${y-3}" stroke="#4a5560" stroke-width="0.9"/>`; });
   labels.forEach((t,i)=>{ const a=xs[i], b=xs[i+1], w=b-a; if(!t) return;
-    const tw=t.length*5.6; const tx=(a+b)/2;
-    if(w>tw+6) s+=`<text x="${tx}" y="${y-3.5}" text-anchor="middle" font-size="9.5" fill="#1d2329" ${LMONO}>${t}</text>`;
-    else if(w>3) s+=`<text x="${tx}" y="${y+12}" text-anchor="middle" font-size="9" fill="#5d6670" ${LMONO}>${t}</text>`; });
+    const tw=t.length*4.8; const tx=(a+b)/2;
+    if(w>tw+6) s+=`<text x="${tx}" y="${y-3.5}" text-anchor="middle" font-size="8" fill="#4a5560" ${LMONO}>${t}</text>`;
+    else if(w>3) s+=`<text x="${tx}" y="${y+12}" text-anchor="middle" font-size="7.5" fill="#6b7580" ${LMONO}>${t}</text>`; });
   return s;
 }
 function layChainV(ys, labels, x, xFrom){
   let s="";
-  s+=`<line x1="${x}" y1="${ys[0]}" x2="${x}" y2="${ys[ys.length-1]}" stroke="#3b434b" stroke-width="0.7"/>`;
-  ys.forEach(y=>{ s+=`<line x1="${xFrom}" y1="${y}" x2="${x-4}" y2="${y}" stroke="#9aa2a9" stroke-width="0.6"/><line x1="${x-3}" y1="${y+3}" x2="${x+3}" y2="${y-3}" stroke="#1d2329" stroke-width="1.1"/>`; });
+  s+=`<line x1="${x}" y1="${ys[0]}" x2="${x}" y2="${ys[ys.length-1]}" stroke="#6b7580" stroke-width="0.6"/>`;
+  ys.forEach(y=>{ s+=`<line x1="${xFrom}" y1="${y}" x2="${x-4}" y2="${y}" stroke="#b8bec4" stroke-width="0.5"/><line x1="${x-3}" y1="${y+3}" x2="${x+3}" y2="${y-3}" stroke="#4a5560" stroke-width="0.9"/>`; });
   labels.forEach((t,i)=>{ const a=ys[i], b=ys[i+1], hgt=Math.abs(b-a); if(!t) return;
-    const tw=t.length*5.6, ty=(a+b)/2;
-    if(hgt>tw+6) s+=`<text transform="translate(${x-4},${ty}) rotate(-90)" text-anchor="middle" font-size="9.5" fill="#1d2329" ${LMONO}>${t}</text>`;
-    else if(hgt>3) s+=`<text x="${x-6}" y="${ty+3}" text-anchor="end" font-size="9" fill="#5d6670" ${LMONO}>${t}</text>`; });
+    const tw=t.length*4.8, ty=(a+b)/2;
+    if(hgt>tw+6) s+=`<text transform="translate(${x-4},${ty}) rotate(-90)" text-anchor="middle" font-size="8" fill="#4a5560" ${LMONO}>${t}</text>`;
+    else if(hgt>3) s+=`<text x="${x-6}" y="${ty+3}" text-anchor="end" font-size="7.5" fill="#6b7580" ${LMONO}>${t}</text>`; });
   return s;
 }
 function drawLayout(){
   const svg=$("lay_svg"); if(!svg) return;
   const v=layVals();
-  if(!(v.L>0&&v.B>0&&v.c1>0&&v.c2>0)){ svg.innerHTML=`<text x="180" y="175" text-anchor="middle" font-size="12" fill="#b3261e" ${LFONT}>Enter L, B, c1 and c2 to see the plan</text>`; $("lay_read").textContent=""; $("lay_stats").innerHTML=""; return; }
+  if(!(v.L>0&&v.B>0&&v.c1>0&&v.c2>0)){ svg.innerHTML=`<text x="180" y="175" text-anchor="middle" font-size="10" fill="#c0392b" ${LFONT}>Enter L, B, c1 and c2 to see the plan</text>`; $("lay_read").textContent=""; $("lay_stats").innerHTML=""; return; }
   const ox=v.ox||0, oy=v.oy||0, G=layGeom(v), {X,Y,sc}=G, L=v.L, B=v.B;
   const x0=X(-L/2), x1=X(L/2), y0=Y(B/2), y1=Y(-B/2);
   const cxm=ox/1000, cym=oy/1000, c1=v.c1/1000, c2=v.c2/1000;
@@ -950,7 +950,7 @@ function drawLayout(){
   const R=layService(v);
   let s=`<defs>
     <pattern id="lay_lift" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#f3f1ec"/><line x1="0" y1="0" x2="0" y2="6" stroke="#c2bcae" stroke-width="1"/></pattern>
-    <pattern id="lay_conc" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#eef2f6"/><circle cx="2" cy="3" r="0.5" fill="#c6ced6"/><circle cx="6.5" cy="7" r="0.45" fill="#c6ced6"/></pattern>
+    <pattern id="lay_conc" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#f2f4f6"/><circle cx="2" cy="3" r="0.45" fill="#d5dbe0"/><circle cx="6.5" cy="7" r="0.4" fill="#d5dbe0"/></pattern>
     <filter id="lay_sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#1d2329" flood-opacity=".25"/></filter>
   </defs>`;
   s+=`<rect width="${LAY.W}" height="${LAY.H}" fill="#fff"/>`;
@@ -962,42 +962,42 @@ function drawLayout(){
     if(lift.length>2){
       s+=`<polygon points="${lift.map(p=>`${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join(" ")}" fill="url(#lay_lift)"/>`;
       let ax=0,ay=0; lift.forEach(p=>{ax+=p[0];ay+=p[1];}); ax/=lift.length; ay/=lift.length;
-      liftLabel=`<text x="${X(ax)}" y="${Y(ay)+3}" text-anchor="middle" font-size="10" font-style="italic" fill="#7d776a" stroke="#f3f1ec" stroke-width="3" paint-order="stroke" ${LFONT}>lifts off</text>`;
+      liftLabel=`<text x="${X(ax)}" y="${Y(ay)+3}" text-anchor="middle" font-size="8" font-style="italic" fill="#7d776a" stroke="#f3f1ec" stroke-width="3" paint-order="stroke" ${LFONT}>lifts off</text>`;
       const zl=layClip(L,B,R.S.a,R.S.b,R.S.c).filter(p=>Math.abs(R.S.a+R.S.b*p[0]+R.S.c*p[1])<1e-6*Math.max(1,Math.abs(R.S.a)));
-      if(zl.length>=2) s+=`<line x1="${X(zl[0][0])}" y1="${Y(zl[0][1])}" x2="${X(zl[1][0])}" y2="${Y(zl[1][1])}" stroke="#8a6d1f" stroke-width="1.2" stroke-dasharray="6 3"/>`;
+      if(zl.length>=2) s+=`<line x1="${X(zl[0][0])}" y1="${Y(zl[0][1])}" x2="${X(zl[1][0])}" y2="${Y(zl[1][1])}" stroke="#6b6457" stroke-width="1" stroke-dasharray="5 3"/>`;
     }
   }
   // centre lines
-  s+=`<line x1="${X(0)}" y1="${y0-14}" x2="${X(0)}" y2="${y1+8}" stroke="#7d868e" stroke-width="0.6" stroke-dasharray="12 3 2 3"/>`;
-  s+=`<line x1="${x0-8}" y1="${Y(0)}" x2="${x1+14}" y2="${Y(0)}" stroke="#7d868e" stroke-width="0.6" stroke-dasharray="12 3 2 3"/>`;
-  s+=`<text x="${x1+16}" y="${Y(0)+3.5}" font-size="10" fill="#5d6670" font-style="italic" ${LFONT}>x</text><text x="${X(0)}" y="${y0-17}" text-anchor="middle" font-size="10" fill="#5d6670" font-style="italic" ${LFONT}>y</text>`;
+  s+=`<line x1="${X(0)}" y1="${y0-14}" x2="${X(0)}" y2="${y1+8}" stroke="#9aa3ab" stroke-width="0.5" stroke-dasharray="10 3 2 3"/>`;
+  s+=`<line x1="${x0-8}" y1="${Y(0)}" x2="${x1+14}" y2="${Y(0)}" stroke="#9aa3ab" stroke-width="0.5" stroke-dasharray="10 3 2 3"/>`;
+  s+=`<text x="${x1+16}" y="${Y(0)+3.5}" font-size="8.5" fill="#6b7580" font-style="italic" ${LFONT}>x</text><text x="${X(0)}" y="${y0-17}" text-anchor="middle" font-size="8.5" fill="#6b7580" font-style="italic" ${LFONT}>y</text>`;
   // kern
-  s+=`<polygon points="${X(L/6)},${Y(0)} ${X(0)},${Y(B/6)} ${X(-L/6)},${Y(0)} ${X(0)},${Y(-B/6)}" fill="#c99628" fill-opacity="0.13" stroke="#a87b16" stroke-width="0.9"/>`;
-  s+=`<text x="${X(-L/6)+5}" y="${Y(0)-4}" font-size="9" fill="#8a6d1f" font-style="italic" stroke="#fff" stroke-width="2.5" stroke-opacity="0.85" paint-order="stroke" ${LFONT}>kern</text>`;
+  s+=`<polygon points="${X(L/6)},${Y(0)} ${X(0)},${Y(B/6)} ${X(-L/6)},${Y(0)} ${X(0)},${Y(-B/6)}" fill="#2a9d8f" fill-opacity="0.10" stroke="#2a7f75" stroke-width="0.8"/>`;
+  s+=`<text x="${X(-L/6)+5}" y="${Y(0)-4}" font-size="7.5" fill="#2a7f75" font-style="italic" stroke="#fff" stroke-width="2.5" stroke-opacity="0.85" paint-order="stroke" ${LFONT}>kern</text>`;
   // footing outline
-  s+=`<rect x="${x0}" y="${y0}" width="${G.w}" height="${G.hh}" fill="none" stroke="#1d2329" stroke-width="1.8"/>`;
+  s+=`<rect x="${x0}" y="${y0}" width="${G.w}" height="${G.hh}" fill="none" stroke="#2b3440" stroke-width="1.4"/>`;
   s+=liftLabel;
   // uniform-pressure ghost
   if(LAY.movable && R && isFinite(R.ux) && isFinite(R.uy)){
     const [gx,gy]=layClamp(v,R.ux,R.uy);
-    if(Math.hypot(gx-ox,gy-oy)>12) s+=`<rect x="${X(gx/1000-c1/2)}" y="${Y(gy/1000+c2/2)}" width="${c1*sc}" height="${c2*sc}" fill="#2e7d4f" fill-opacity="0.06" stroke="#2e7d4f" stroke-width="1.1" stroke-dasharray="4 2.5"/>`;
+    if(Math.hypot(gx-ox,gy-oy)>12) s+=`<rect x="${X(gx/1000-c1/2)}" y="${Y(gy/1000+c2/2)}" width="${c1*sc}" height="${c2*sc}" fill="#7b5ea7" fill-opacity="0.07" stroke="#7b5ea7" stroke-width="1" stroke-dasharray="4 2.5"/>`;
   }
   // column
   const cX=X(cxm-c1/2), cY=Y(cym+c2/2), cw=Math.max(c1*sc,6), ch=Math.max(c2*sc,6), cx_=X(cxm), cy_=Y(cym);
   s+=`<g id="lay_col" class="${LAY.movable?"mov":""}" tabindex="${LAY.movable?0:-1}" role="${LAY.movable?"slider":"img"}" aria-label="Column at x ${ox} mm, y ${oy} mm">
     ${LAY.movable?`<title>Drag to move the column</title>`:""}
     <rect class="ring" x="${cX-4}" y="${cY-4}" width="${cw+8}" height="${ch+8}" rx="3" fill="none" stroke="#1f4e79" stroke-opacity="0" stroke-width="1.5"/>
-    <rect x="${cX}" y="${cY}" width="${cw}" height="${ch}" fill="${fits?"#4a5562":"#b3261e"}" stroke="#1d2329" stroke-width="1.2" filter="url(#lay_sh)"/>
+    <rect x="${cX}" y="${cY}" width="${cw}" height="${ch}" fill="${fits?"#34495e":"#c0392b"}" stroke="#1c2833" stroke-width="1" filter="url(#lay_sh)"/>
     <path d="M${cX},${cY} L${cX+cw},${cY+ch} M${cX+cw},${cY} L${cX},${cY+ch}" stroke="#ffffff" stroke-opacity="0.35" stroke-width="0.8"/>
-    <circle cx="${cx_}" cy="${cy_}" r="1.8" fill="#fff"/></g>`;
+    <circle cx="${cx_}" cy="${cy_}" r="1.5" fill="#fff"/></g>`;
   // resultant
   if(R && isFinite(R.ex)){ const inside=Math.abs(R.ex)<L/2&&Math.abs(R.ey)<B/2, rx=X(Math.max(-L/2,Math.min(L/2,R.ex))), ry=Y(Math.max(-B/2,Math.min(B/2,R.ey)));
-    s+=`<g><circle cx="${rx}" cy="${ry}" r="5.5" fill="#fff" fill-opacity="0.9" stroke="#b3261e" stroke-width="1.6"/><path d="M${rx-3.5},${ry-3.5} L${rx+3.5},${ry+3.5} M${rx-3.5},${ry+3.5} L${rx+3.5},${ry-3.5}" stroke="#b3261e" stroke-width="1.3"/>
-      <text x="${rx+8}" y="${ry-6}" font-size="10.5" font-weight="600" fill="#b3261e" stroke="#fff" stroke-width="2.5" paint-order="stroke" ${LFONT}>R${inside?"":" outside"}</text></g>`; }
+    s+=`<g><circle cx="${rx}" cy="${ry}" r="4.5" fill="#fff" fill-opacity="0.9" stroke="#c0392b" stroke-width="1.4"/><path d="M${rx-2.8},${ry-2.8} L${rx+2.8},${ry+2.8} M${rx-2.8},${ry+2.8} L${rx+2.8},${ry-2.8}" stroke="#c0392b" stroke-width="1.1"/>
+      <text x="${rx+8}" y="${ry-6}" font-size="8.5" font-weight="600" fill="#c0392b" stroke="#fff" stroke-width="2.5" paint-order="stroke" ${LFONT}>R${inside?"":" outside"}</text></g>`; }
   // handles
   const hx=x1, hy=Y(0), vx=X(0), vy=y0;
-  s+=`<g class="lay_h" id="lay_hL"><title>Drag to change L</title><rect x="${hx-5}" y="${hy-15}" width="10" height="30" rx="5" fill="#1f4e79"/><path d="M${hx-1.5},${hy-6} v12 M${hx+1.5},${hy-6} v12" stroke="#fff" stroke-width="0.9"/></g>`;
-  s+=`<g class="lay_v" id="lay_hB"><title>Drag to change B</title><rect x="${vx-15}" y="${vy-5}" width="30" height="10" rx="5" fill="#1f4e79"/><path d="M${vx-6},${vy-1.5} h12 M${vx-6},${vy+1.5} h12" stroke="#fff" stroke-width="0.9"/></g>`;
+  s+=`<g class="lay_h" id="lay_hL"><title>Drag to change L</title><rect x="${hx-4}" y="${hy-13}" width="8" height="26" rx="4" fill="#2c5f8a"/><path d="M${hx-1.5},${hy-6} v12 M${hx+1.5},${hy-6} v12" stroke="#fff" stroke-width="0.9"/></g>`;
+  s+=`<g class="lay_v" id="lay_hB"><title>Drag to change B</title><rect x="${vx-13}" y="${vy-4}" width="26" height="8" rx="4" fill="#2c5f8a"/><path d="M${vx-6},${vy-1.5} h12 M${vx-6},${vy+1.5} h12" stroke="#fff" stroke-width="0.9"/></g>`;
   // dimensions: chain (edge, column, edge) and overall, below and to the left
   const gl=L*500+ox-v.c1/2, gr=L*500-ox-v.c1/2, gb=B*500+oy-v.c2/2, gt=B*500-oy-v.c2/2;
   const fmt=x=>f(x,0);
@@ -1007,7 +1007,7 @@ function drawLayout(){
   }
   s+=layChainH([x0,x1],[`L = ${fmt(L*1000)}`], y1+42, y1+20);
   s+=layChainV([y0,y1],[`B = ${fmt(B*1000)}`], x0-42, x0-20);
-  s+=`<text x="6" y="${LAY.H-6}" font-size="9" fill="#9aa2a9" ${LFONT}>mm</text>`;
+  s+=`<text x="6" y="${LAY.H-6}" font-size="7.5" fill="#9aa3ab" ${LFONT}>mm</text>`;
   svg.setAttribute("viewBox",`0 0 ${LAY.W} ${LAY.H}`);
   svg.innerHTML=s;
 
